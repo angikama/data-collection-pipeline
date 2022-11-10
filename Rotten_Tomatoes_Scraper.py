@@ -9,12 +9,21 @@ class Scraper():
     def __init__(self):
         options = webdriver.ChromeOptions()
         options.add_argument("--incognito")
+        # options.headless = True        Add in when code is complete 
         self.driver = webdriver.Chrome(options = options)
         self.tv_show_links = []
     
     def search(self):
         URL = "https://www.rottentomatoes.com/browse/tv_series_browse/sort:popular?page=1"
         self.driver.get(URL)
+        time.sleep(5)
+
+## Sets high tomatometer filter
+    def high_tomatometer(self):
+        sort_by_menu = self.driver.find_element(By.XPATH, '//*[@id="main-page-content"]/div/div[2]/div/filter-chip[1]')
+        sort_by_menu.click()
+        tomatometer_high_button = self.driver.find_element(By.XPATH, '//select-radio[@value="critic_highest"]')
+        tomatometer_high_button.click()
         time.sleep(5)
 
 ## Finds netflix, prime and disney buttons and clicks them (3 most popular/fav streaming)
@@ -25,27 +34,42 @@ class Scraper():
         prime_button.click()
         disney_button = self.driver.find_element(By.XPATH, '//where-to-watch-bubble[@value="disney_plus"]')
         disney_button.click()
-
-## Sets Audience Score to Fresh - 60% of reviews are positive
-    def high_tomatometer(self):
-        sort_by_menu = self.driver.find_element(By.XPATH, '//*[@id="main-page-content"]/div/div[2]/div/filter-chip[1]')
-        sort_by_menu.click()
-        tomatometer_high_button = self.driver.find_element(By.XPATH, '//select-radio[@value="critic_highest"]')
-        tomatometer_high_button.click()
-
+        time.sleep(10)
 
 ## Selects top 10 shows and collects their links in a list
-    def tv_show_links(self):
-        tv_show = self.driver.find_elements(By.XPATH, '//a[@class="js-tile-link"]') ## Selects the movie from the list
-        for i in range(len(tv_show)):
-            self.tv_show_links.append(tv_show[i].get_attribute('href'))
+    def top_tv_links(self):
+        tv_shows = self.driver.find_elements(By.XPATH, '//a[@class="js-tile-link"]') ## Selects the movie from the list
+        for i in range(len(tv_shows)):
+            self.tv_show_links.append(tv_shows[i].get_attribute('href'))
             self.tv_show_links[:10]
-            print(self.tv_show_links)
+        time.sleep(5)   
 
+## Retriving text and image data from the single link
+    def tv_show_data(self):
+        for i in range(len(self.tv_show_links)):
+            show = self.tv_show_links[i]
+            self.driver.get(show)
+            self.show_name = self.driver.find_element(By.XPATH, '//*[@id="seriesHeader"]')
+            self.tv_poster_img = self.driver.find_element(By.XPATH, '//img[@class="posterImage"]')
+            self.synopsis = self.driver.find_element(By.XPATH, '//*[@id="movieSynopsis"]')
+            self.tv_network = self.driver.find_element(By.XPATH, '//*[@id="detail_panel"]/div/table/tbody/tr[1]/td[2]')
+            self.genre = self.driver.find_element(By.XPATH, '//*[@id="detail_panel"]/div/table/tbody/tr[3]/td[2]')
+            self.avg_tomatometer_score = self.driver.find_element(By.XPATH, '//*[@id="tomato_meter_link"]/span/span[2]')
+            
+            self.tv_show_info = {
+            'show_name': self.show_name.text,
+            'tv_poster_img': self.tv_poster_img.get_attribute('src'),
+            'synopsis': self.synopsis.text,
+            'tv_network': self.tv_network.text,
+            'genre': self.genre.text,
+            'avg_tomatometer_score': self.avg_tomatometer_score.text
+            }
+            print(self.tv_show_info)
 
 if __name__ == "__main__":
     webscraper = Scraper()
     webscraper.search()
-    webscraper.select_streaming_sites()
     webscraper.high_tomatometer()
-    webscraper.tv_show_links()
+    webscraper.select_streaming_sites()
+    webscraper.top_tv_links()
+    webscraper.tv_show_data()
