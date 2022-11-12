@@ -1,6 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import datetime
+dt = datetime.now()
+
 
 ## Scraper Class that will contain all the methods
 class Scraper():
@@ -44,8 +47,9 @@ class Scraper():
             self.tv_show_links[:10]
         time.sleep(5)   
 
-## Retriving text and image data from the single link
+## Retriving text and image data from the individual links and adding to dictionary
     def tv_show_data(self):
+        tv_show_info = {}
         for i in range(len(self.tv_show_links)):
             show = self.tv_show_links[i]
             self.driver.get(show)
@@ -55,16 +59,16 @@ class Scraper():
             self.tv_network = self.driver.find_element(By.XPATH, '//*[@id="detail_panel"]/div/table/tbody/tr[1]/td[2]')
             self.genre = self.driver.find_element(By.XPATH, '//*[@id="detail_panel"]/div/table/tbody/tr[3]/td[2]')
             self.avg_tomatometer_score = self.driver.find_element(By.XPATH, '//*[@id="tomato_meter_link"]/span/span[2]')
+            self.timestamp = dt
             
-            self.tv_show_info = {
-            'show_name': self.show_name.text,
-            'tv_poster_img': self.tv_poster_img.get_attribute('src'),
-            'synopsis': self.synopsis.text,
-            'tv_network': self.tv_network.text,
-            'genre': self.genre.text,
-            'avg_tomatometer_score': self.avg_tomatometer_score.text
-            }
-            print(self.tv_show_info)
+            tv_show_info['show_name'] = self.show_name.text
+            tv_show_info['tv_poster_img'] = self.tv_poster_img.get_attribute('src')
+            tv_show_info['synopsis'] = self.synopsis.text
+            tv_show_info['tv_network'] = self.tv_network.text
+            tv_show_info['genre'] = self.genre.text,
+            tv_show_info['avg_tomatometer_score'] = self.avg_tomatometer_score.text
+            tv_show_info['timestamp'] = self.timestamp
+            
 
 if __name__ == "__main__":
     webscraper = Scraper()
