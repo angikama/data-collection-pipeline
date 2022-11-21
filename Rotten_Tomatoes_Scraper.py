@@ -69,7 +69,7 @@ class Scraper():
         prime_button.click()
         disney_button = self.driver.find_element(By.XPATH, '//where-to-watch-bubble[@value="disney_plus"]')
         disney_button.click()
-        time.sleep(10)
+        time.sleep(8)
 
 
     def high_tomatometer(self):
@@ -181,5 +181,4 @@ if __name__ == "__main__":
     webscraper.high_tomatometer()
     webscraper.top_tv_links()
     webscraper.tv_show_data()
-  
   
