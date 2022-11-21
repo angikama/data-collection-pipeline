@@ -1,14 +1,16 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
 
+import time
 from datetime import datetime
 now = datetime.now()
 
 import json
+
 import os
 
 import requests
+
 import shutil
 
 ## Scraper Class that will contain all the methods
