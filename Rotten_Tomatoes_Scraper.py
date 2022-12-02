@@ -1,19 +1,22 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 import time
 from datetime import datetime
 now = datetime.now()
 
 import json
-
 import os
-
 import requests
-
 import shutil
 
-## Scraper Class that will contain all the methods
+
 class Scraper():
     '''
     This class represents the Rotten Tomatoes Web Scraper
@@ -28,23 +31,26 @@ class Scraper():
     
     '''
 
-## Opening an incognito browser window and navigates to the URL
     def __init__(self):
         '''
         Class constructor for Scraper object
 
         '''
-        options = webdriver.ChromeOptions()
-        options.add_argument("--incognito")
-        # options.headless = True        Add in when code is complete 
-        self.driver = webdriver.Chrome(options = options)
+        options = Options()
+        options.add_argument("--no-sandbox")
+        options.add_argument("--headless") 
+        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-extensions")
+        self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
         self.tv_show_links = []
         self.tv_show_info = {}
       
     
     def search(self):
         '''
-        Searches the link
+        Searches the link and waits for the element to be clickable, then clicks the button that accepts cookiesdocker 
 
         Parameters:
         ------------
@@ -54,6 +60,7 @@ class Scraper():
         '''
         URL = "https://www.rottentomatoes.com/browse/tv_series_browse/sort:popular?page=1"
         self.driver.get(URL)
+        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="onetrust-accept-btn-handler"]'))).click()
         time.sleep(5)
 
     def select_streaming_sites(self):
@@ -164,7 +171,7 @@ class Scraper():
                 image_file_name = timestamp_now+".jpg"
                 
                 res = requests.get(image_url, stream = True)
-                # saves image
+                
                 if not os.path.exists('raw_data'):
                     os.makedirs('raw_data')
                 if not os.path.exists(f'raw_data/{filename}/images'):
