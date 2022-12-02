@@ -1,13 +1,27 @@
 # Data Collection Pipeline
 
-I have selected the TV show section of the Rotten Tomatoes website because I enjoy watching TV series in my spare time. I do prefer to watch ones that are positively reviewed by others, and I would like a way to search shows from subscriptions I have all at once.
+![image](https://www.rottentomatoes.com/assets/pizza-pie/images/rottentomatoes_logo_40.336d6fe66ff.png)
 
-Using Selenium's click function, the scraper selects 10 TV shows that have been filtered by high Tomatometer score, and availiability on 3 streaming sites: Netflix, Disney + and Amazon Prime.
+This is a webscraper that collects information from the TV show section of the Rotten Tomatoes website. It selects 10 TV shows that are positively reviewed by others, and from 3 subscription sites.
 
-The Selenium webdriver allows automation of the Google Chrome browser, the methods within the class open up the browser window and naviagte to the website. They also allow the desired filters to be selected to return a list of 10 TV show links.
+## Selenium
+The Selenium webdriver allows automation of the Google Chrome browser. The methods within the class include:
+  - Opening up the browser window and navigating to the website
+  - Click the 'Accept cookies' button
+  - Click the desired filters - high Tomatometer score, and availiability on 3 streaming sites: Netflix, Disney + and Amazon Prime.
+  - Return a list of the first 10 TV show links
+  
+## Saving data
 
 Data is scraped from each of the 10 links in the list and recorded in a dictionary. Information on each TV show is included, for example, the title, synopsis and genre. The dictionaries holding the data are saved as JSON files in individual folders for each tv show.
 
 Using requests and shutil modules, the TV show poster image for each show is downloaded using the url scraped from the individual links and saved in a seperate folder within the original folder for the TV show.
 
+## Testing
+
 To test the scraper, the Unittest module is used. Within the unittest class, the important functions of the scraper are tested, including writing JSON files and downloading the images.
+
+## Docker
+The application was containerised using Docker. Writing a Dockerfile, allows for the image to install all dependencies needed for the scraper, including ChromeDriver and Google Chrome. The created image can then be run in a container on other machines.
+
+A CI/CD pipeline was also set up for the docker image using GitHub Actions, 'main.yml' contains the workflow that allows for the docker image to be built and pushed. It uses secrets and a Personal Access Token provided by Docker Hub.
