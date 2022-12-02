@@ -21,7 +21,7 @@ Using requests and shutil modules, the TV show poster image for each show is dow
 
 To test the scraper, the Unittest module is used. Within the unittest class, the important functions of the scraper are tested, including writing JSON files and downloading the images.
 
-## Docker
+## Containersing using Docker
 The application was containerised using Docker. Writing a Dockerfile, allows for the image to install all dependencies needed for the scraper, including ChromeDriver and Google Chrome. The created image can then be run in a container on other machines.
 
 A CI/CD pipeline was also set up for the docker image using GitHub Actions, 'main.yml' contains the workflow that allows for the docker image to be built and pushed. It uses secrets and a Personal Access Token provided by Docker Hub.
