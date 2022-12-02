@@ -4,6 +4,11 @@
 
 This is a webscraper that collects information from the TV show section of the Rotten Tomatoes website. It selects 10 TV shows that are positively reviewed by others, and from 3 subscription sites.
 
+### Tools used
+- Selenium
+- Docker
+- CI/CD pipelines
+
 ## Selenium
 The Selenium webdriver allows automation of the Google Chrome browser. The methods within the class include:
   - Opening up the browser window and navigating to the website
