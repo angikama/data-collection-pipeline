@@ -16,14 +16,20 @@ The Selenium webdriver allows automation of the Google Chrome browser. The metho
   - Click the desired filters - high Tomatometer score, and availiability on 3 streaming sites: Netflix, Disney + and Amazon Prime.
   - Return a list of the first 10 TV show links
   
-## Saving data
+  Method that selects the 'high tomatometer' filter
+  <img width="675" alt="image" src="https://user-images.githubusercontent.com/111760140/205447553-04dece95-389b-40ec-a78b-dbc3324e5b0f.png">
 
+  
+## Saving data
 Data is scraped from each of the 10 links in the list and recorded in a dictionary. Information on each TV show is included, for example, the title, synopsis and genre. The dictionaries holding the data are saved as JSON files in individual folders for each tv show.
+
+  Method that writes the JSON files
+  <img width="454" alt="image" src="https://user-images.githubusercontent.com/111760140/205447604-97a10258-b1d5-44d2-b923-1df6c579d37a.png">
+
 
 Using requests and shutil modules, the TV show poster image for each show is downloaded using the url scraped from the individual links and saved in a seperate folder within the original folder for the TV show.
 
 ## Testing
-
 To test the scraper, the Unittest module is used. Within the unittest class, the important functions of the scraper are tested, including writing JSON files and downloading the images.
 
 ## Containersing using Docker
