@@ -2,9 +2,13 @@
 
 ![image](https://www.rottentomatoes.com/assets/pizza-pie/images/rottentomatoes_logo_40.336d6fe66ff.png)
 
-This is a webscraper that collects information from the TV show section of the Rotten Tomatoes website. It selects 10 TV shows that are positively reviewed by others, and from 3 subscription sites.
+## A Selenium webscraper containerised using Docker
+### Purpose:
+- Collects information from the TV show section of the Rotten Tomatoes website
+- Selects 10 TV shows that are positively reviewed by others, and from 3 subscription sites
+- Scrapes data including images and saves in JSON files
 
-### Tools used
+### Tools used:
 - Python
 - Selenium
 - Docker
@@ -17,7 +21,7 @@ The Selenium webdriver allows automation of the Google Chrome browser. The metho
   - Click the desired filters - high Tomatometer score, and availiability on 3 streaming sites: Netflix, Disney + and Amazon Prime.
   - Return a list of the first 10 TV show links
   
-  ### Method that selects the 'high tomatometer' filter
+  ### Method: Selects the 'high tomatometer' filter
   
   <img width="675" alt="image" src="https://user-images.githubusercontent.com/111760140/205447553-04dece95-389b-40ec-a78b-dbc3324e5b0f.png">
 
@@ -25,7 +29,7 @@ The Selenium webdriver allows automation of the Google Chrome browser. The metho
 ## Saving data
 Data is scraped from each of the 10 links in the list and recorded in a dictionary. Information on each TV show is included, for example, the title, synopsis and genre. The dictionaries holding the data are saved as JSON files in individual folders for each tv show.
 
-  ### Method that writes the JSON files
+  ### Method; Writing the JSON files
   
   <img width="454" alt="image" src="https://user-images.githubusercontent.com/111760140/205447604-97a10258-b1d5-44d2-b923-1df6c579d37a.png">
 
