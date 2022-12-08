@@ -25,14 +25,13 @@ The Selenium webdriver allows automation of the Google Chrome browser. The metho
   - Return a list of TV show links
   
   ### Method: Selects the sorting filter
-  
-  
+  ![filters](https://user-images.githubusercontent.com/111760140/206553564-5427de94-6ff9-47dc-adf0-3cc2024ce2da.jpg)
+
 ## Saving data
 Data is scraped from each of the links in the list and recorded in a dictionary. Information on each TV show is included, for example, the title, synopsis and genre. The dictionaries holding the data are saved as JSON files in individual folders for each tv show.
 
   ### Method: Writing the JSON files
-  
-
+  ![json](https://user-images.githubusercontent.com/111760140/206553535-9ae23971-d916-4f7b-8d01-00d2fa2f6e75.jpg)
 
 Using requests and shutil modules, the TV show poster image for each show is downloaded using the url scraped from the individual links and saved in a seperate folder within the original folder for the TV show.
 
